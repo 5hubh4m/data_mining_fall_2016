@@ -80,9 +80,6 @@ public class USpan {
 	/** the input file path **/
 	private String input;
 
-	/** max number of patterns to save **/
-	private int k = 0;
-
 	/**
 	 * Default constructor
 	 */
