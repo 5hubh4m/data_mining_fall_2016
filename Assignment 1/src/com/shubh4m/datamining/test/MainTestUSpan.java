@@ -8,8 +8,6 @@ import com.shubh4m.datamining.uspan.USpan;
 
 /**
  * This file is for testing the USpan algorithm
- * @see Sequence
- * @see SequenceDatabase
  * @author Philippe Fournier-Viger, 2015
  */
 public class MainTestUSpan {

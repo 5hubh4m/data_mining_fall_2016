@@ -1,7 +1,5 @@
 package com.shubh4m.datamining.husrm;
 
-import com.shubh4m.datamining.uspan.USpan;
-
 import java.io.IOException;
 
 public class LengthConstraints extends HUSRM {

@@ -1,10 +1,12 @@
-package com.shubh4m.datamining.uspan;
+package com.shubh4m.datamining.foshu;
+
+import com.shubh4m.datamining.uspan.USpan;
 
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class TopK extends USpan {
+public class TopK extends FOSHU {
     private int k = 0;
 
     public TopK(int k) {
@@ -14,14 +16,16 @@ public class TopK extends USpan {
 
     class WriteData implements Comparator<WriteData> {
         int[] prefix = null;
-        int prefixLength = 0;
-        public int utility = 0;
+        int item = 0;
+        int utility = 0;
+        double relativeUtility;
 
         WriteData() {}
 
-        WriteData(int[] p, int pl, int util) {
+        WriteData(int[] p, int it, int util, double rutil) {
             this.prefix = p;
-            this.prefixLength = pl;
+            this.relativeUtility = rutil;
+            this.item = it;
             this.utility = util;
         }
 
@@ -37,10 +41,10 @@ public class TopK extends USpan {
 
     private ArrayList<WriteData> data = null;
 
-    protected void writeOut(int[] prefix, int prefixLength,  int utility) throws IOException {
-        patternCount++;
+    void writeOut(int[] prefix, int item, int utility, double relativeUtility) throws IOException {
+        huiCount++;
 
-        data.add(new WriteData(prefix, prefixLength, utility));
+        data.add(new WriteData(prefix, item, utility, relativeUtility));
     }
 
     private void writeOutFinal() throws IOException {
@@ -49,7 +53,7 @@ public class TopK extends USpan {
         int i = 0;
         for(WriteData d : data) {
             if (i < k) {
-                super.writeOut(d.prefix, d.prefixLength, d.utility);
+                super.writeOut(d.prefix, d.item, d.utility, d.relativeUtility);
                 i++;
             } else
                 break;
@@ -57,8 +61,8 @@ public class TopK extends USpan {
     }
 
 
-    public void runAlgorithm(String input, String output, int minUtility) throws IOException {
-        super.runAlgorithm(input, output, minUtility);
+    public void runAlgorithm(String input, String output, double minUtilityR) throws IOException {
+        super.runAlgorithm(input, output, minUtilityR);
         writeOutFinal();
 
         // close output file
